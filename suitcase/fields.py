@@ -833,7 +833,7 @@ class SubstructureField(BaseField):
         return self._value.unpack(data, **kwargs)
 
     def setval(self, value):
-        if isinstance(value, suitcase.structure.Structure):
+        if value is None or isinstance(value, suitcase.structure.Structure):
             BaseField.setval(self, value)
         else:
             self._value.setval(value)
