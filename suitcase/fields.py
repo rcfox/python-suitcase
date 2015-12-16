@@ -8,6 +8,7 @@ import struct
 import six
 from suitcase.exceptions import SuitcaseChecksumException, SuitcaseProgrammingError, \
     SuitcaseParseError, SuitcaseException, SuitcasePackStructException
+import suitcase
 from six import BytesIO, StringIO
 
 
@@ -830,6 +831,12 @@ class SubstructureField(BaseField):
     def unpack(self, data, **kwargs):
         self._value = self.substructure()
         return self._value.unpack(data, **kwargs)
+
+    def setval(self, value):
+        if isinstance(value, suitcase.structure.Structure):
+            BaseField.setval(self, value)
+        else:
+            self._value.setval(value)
 
 
 class FieldArray(BaseField):
