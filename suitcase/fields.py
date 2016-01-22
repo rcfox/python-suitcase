@@ -906,6 +906,7 @@ class BaseFixedByteSequence(BaseField):
         BaseField.__init__(self, **kwargs)
         self.bytes_required = size
         self.format = make_format(size)
+        self._value = [0] * size
 
     def pack(self, stream):
         try:
@@ -951,7 +952,7 @@ class BaseStructField(BaseField):
 
     def __init__(self, **kwargs):
         BaseField.__init__(self, **kwargs)
-        self._value = None
+        self._value = 0
         self._keep_bytes = getattr(self, "KEEP_BYTES", None)
         if self._keep_bytes is not None:
             self.bytes_required = self._keep_bytes
